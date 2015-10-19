@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Leiningen: thheller/shadow-build:1.0.135">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/thheller/shadow-build/1.0.135/shadow-build-1.0.135.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
