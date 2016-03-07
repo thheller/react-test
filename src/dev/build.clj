@@ -10,6 +10,9 @@
   (-> (cljs/init-state)
       (cljs/find-resources-in-classpath)
       (cljs/find-resources "src/cljs")
+      (cljs/set-build-options
+        {:pretty-print true
+         :pseudo-names true})
 
       ;; this is ugly
       (cljs/merge-resource
@@ -20,10 +23,11 @@
            :provides #{'cljsjs.react} ;; imposter
            :name "lib/react.js"
            :js-name "lib/react.js"
-           :foreign true
            :file file
            :last-modified (.lastModified file)
-           :input (atom (slurp file))}))
+           :input (atom
+                    (str "goog.provide('cljsjs.react');\n"
+                         (slurp file)))}))
       (cljs/configure-module :test ['react-test.app] #{}
         {})
       (cljs/finalize-config)
