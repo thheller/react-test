@@ -1,10 +1,8 @@
-(ns react-test.app
-  (:require [module$react$react :as react]
-            [module$react$lib$ReactDOM :as rd]))
+(ns react-test.app)
 
 (defn test []
-  (rd/h1 nil "hello from react"))
+  (js/React.DOM.h1 nil "hello from react"))
 
-(react/render (test) (js/document.getElementById "app"))
+(js/React.render (test) (js/document.getElementById "app"))
 
 (prn :yo)

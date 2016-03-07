@@ -1,15 +1,32 @@
 (ns build
   (:require [shadow.cljs.build :as cljs]
-            [shadow.devtools.server :as devtools]))
+            [shadow.devtools.server :as devtools]
+            [clojure.java.io :as io])
+  (:import (com.google.javascript.jscomp CompilerOptions CustomPassExecutionTime)
+           (info.persistent.react.jscomp ReactCompilerPass ReactWarningsGuard)))
 
 
 (defn project-setup []
   (-> (cljs/init-state)
       (cljs/find-resources-in-classpath)
       (cljs/find-resources "src/cljs")
-      (cljs/find-resources "module")
-      (cljs/configure-module :test ['react-test.app] #{}
-        {:prepend-js "process = {env: {NODE_ENV:'production'}};"})
+
+      ;; this is ugly
+      (cljs/merge-resource
+        (let [file (io/file "lib/react.js")]
+          {:type :js
+           :requires #{}
+           :require-order []
+           :provides #{'React}
+           :name "lib/react.js"
+           :js-name "lib/react.js"
+           :file file
+           :last-modified (.lastModified file)
+           :input (atom (slurp file))}))
+      (cljs/configure-module :test ['React ;; add it manually for now
+                                    'react-test.app
+                                    ] #{}
+        {})
       (cljs/finalize-config)
       ))
 
@@ -20,6 +37,10 @@
 
 (defn production [& args]
   (-> (project-setup)
+      (cljs/add-closure-configurator
+        (fn [cc ^CompilerOptions co]
+          (.addWarningsGuard co (ReactWarningsGuard.))
+          (.addCustomPass co CustomPassExecutionTime/BEFORE_CHECKS (ReactCompilerPass. cc) )))
       (assoc :optimizations :advanced)
       (cljs/compile-modules)
       (cljs/closure-optimize)
