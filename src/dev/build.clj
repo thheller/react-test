@@ -13,7 +13,7 @@
 
       ;; this is ugly
       (cljs/merge-resource
-        (let [file (io/file "lib/react.js")]
+        (let [file (io/file "lib/react.min.js")]
           {:type :js
            :requires #{}
            :require-order []

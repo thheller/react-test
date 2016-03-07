@@ -5,4 +5,5 @@
 
 (js/React.render (test) (js/document.getElementById "app"))
 
-(prn :yo)
+;; only to make sure closure doesn't DCE all of cljs.core
+(prn [{:yo "hi"}])
