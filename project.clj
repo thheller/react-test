@@ -14,4 +14,6 @@
   :profiles {:dev {:source-paths ["src/dev"]
                    :dependencies [[thheller/shadow-devtools "0.1.35"]
                                   [thheller/shadow-build "1.0.201"]
+                                  [reagent "0.5.1"
+                                   :exclusions [cljsjs/react]]
                                   [mihaip/react-closure-compiler "20160307"]]}})

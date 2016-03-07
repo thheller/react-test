@@ -57,6 +57,7 @@
     <orderEntry type="library" name="Leiningen: org.ow2.asm/asm-all:4.2" level="project" />
     <orderEntry type="library" name="Leiningen: potemkin:0.4.1" level="project" />
     <orderEntry type="library" name="Leiningen: primitive-math:0.1.4" level="project" />
+    <orderEntry type="library" name="Leiningen: reagent:0.5.1" level="project" />
     <orderEntry type="library" name="Leiningen: riddley:0.1.10" level="project" />
     <orderEntry type="library" name="Leiningen: thheller/shadow-build:1.0.201" level="project" />
     <orderEntry type="library" name="Leiningen: thheller/shadow-client:1.0.161" level="project" />

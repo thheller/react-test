@@ -1,9 +1,15 @@
-(ns react-test.app)
+(ns react-test.app
+  (:require [reagent.core :as r]))
 
-(defn test []
-  (js/React.DOM.h1 nil "hello from react"))
+(def click-count (r/atom 0))
 
-(js/React.render (test) (js/document.getElementById "app"))
+(defn counting-component []
+  [:div
+   "The atom " [:code "click-count"] " has value: "
+   @click-count ". "
+   [:input {:type "button" :value "Click me!"
+            :on-click #(swap! click-count inc)}]])
 
-;; only to make sure closure doesn't DCE all of cljs.core
-(prn [{:yo "hi"}])
+
+(let [container (js/document.getElementById "app")]
+  (r/render [counting-component] container))

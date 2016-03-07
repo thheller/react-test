@@ -17,15 +17,14 @@
           {:type :js
            :requires #{}
            :require-order []
-           :provides #{'React}
+           :provides #{'cljsjs.react} ;; imposter
            :name "lib/react.js"
            :js-name "lib/react.js"
+           :foreign true
            :file file
            :last-modified (.lastModified file)
            :input (atom (slurp file))}))
-      (cljs/configure-module :test ['React ;; add it manually for now
-                                    'react-test.app
-                                    ] #{}
+      (cljs/configure-module :test ['react-test.app] #{}
         {})
       (cljs/finalize-config)
       ))
